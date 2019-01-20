@@ -1,3 +1,3 @@
 # gulp-workflow
 
-npm install -- all other commmands are in the gulpfile :)
+npm install -- all other commands are in the gulpfile :)
