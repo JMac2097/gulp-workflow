@@ -1,9 +1,11 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync').create();
+const concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var pump = require('pump');
-var htmlmin = require('gulp-htmlmin')
+var htmlmin = require('gulp-htmlmin');
+var injectPartials = require('gulp-inject-partials');
 var imagemin = require('gulp-imagemin');
 var cache = require('gulp-cache');
 var del = require('del');
@@ -21,6 +23,7 @@ var sassOptions = {
 var paths = {
     src: 'src/**/*',
     srcHTML: 'src/**/*.html',
+    srcMainSASS: 'src/styles/main.scss',
     srcSASS: 'src/styles/**/*.scss',
     srcJS: 'src/scripts/**/*.js',
     srcIMAGES: 'src/images/**/*.+(png|jpg|gif|svg)',
@@ -47,12 +50,13 @@ var dest = {
 // html task
 gulp.task('html', function() {
     gulp.src(paths.srcHTML)
+    .pipe(injectPartials())
     .pipe(gulp.dest(paths.tmp));
 });
 
 // sass task
 gulp.task('sass', function() {
-    return gulp.src(paths.srcSASS)
+    return gulp.src(paths.srcMainSASS)
     .pipe(sourcemaps.init())
     .pipe(sass({
         style: 'compressed',
@@ -63,6 +67,7 @@ gulp.task('sass', function() {
     }))
     .pipe(sourcemaps.write())
     .pipe(autoprefixer())
+    .pipe(concat('main.css'))
     .pipe(gulp.dest(dest.tmpCSS))
     .pipe(browserSync.stream());
 });
