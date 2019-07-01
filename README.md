@@ -2,8 +2,7 @@
 
 npm install -- all other commands are in the gulpfile :)
 
-
-================================================ Setup notes ============================================
+Setup notes
 Clone workflow repo into new site folder
 setup new repo on git hub, no need for readme as one is included
 cd into website folder
@@ -15,4 +14,4 @@ git push origin master
 git push --all to confirm
 npm install
 gulp or gulp watch to start the server
-=========================================================================================================
+
